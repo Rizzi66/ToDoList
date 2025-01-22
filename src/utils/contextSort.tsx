@@ -3,9 +3,6 @@ import TaskModel from "../models/TaskModel";
 
 export interface SortContextType {
   onSort: (option: string, tasks: TaskModel[]) => TaskModel[];
-  isSortByStatus: boolean;
-  isSortByDueDate: boolean;
-  isSortByCreateDate: boolean;
   isSortAscending: boolean;
   sortOption: string;
   setIsSortAscending: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,61 +11,47 @@ export interface SortContextType {
 export const SortContext = createContext<SortContextType | null>(null);
 
 export const SortProvider = ({ children }: any) => {
-  const [isSortByStatus, setIsSortByStatus] = useState<boolean>(false);
-  const [isSortByDueDate, setIsSortByDueDate] = useState<boolean>(false);
-  const [isSortByCreateDate, setIsSortByCreateDate] = useState<boolean>(false);
   const [isSortAscending, setIsSortAscending] = useState<boolean>(true);
   const [sortOption, setSortOption] = useState<string>("dueDate");
 
-  const onSort = (option: string, tasks: TaskModel[]) => {
-    let taskPreSorted = [...tasks];
-    let taskSorted = [...tasks];
-    switch (option) {
-      case "status": {
-        taskPreSorted = [...tasks].sort((a, b) => {
-          return (
-            new Date(a.date_expiration!).getTime() -
-            new Date(b.date_expiration!).getTime()
-          );
-        });
-        taskSorted = [...taskPreSorted].sort((a, b) => {
-          if (a.statut < b.statut) return -1;
-          if (a.statut > b.statut) return 1;
-          return 0;
-        });
-        setIsSortByStatus(true);
-        setIsSortByDueDate(false);
-        setIsSortByCreateDate(false);
-        setSortOption("status");
-        break;
+  const dateSort = (a: Date, b: Date): number => {
+    const aSort = a ? new Date(a).getTime() : 0;
+    const bSort = b ? new Date(b).getTime() : 0;
+    return aSort - bSort;
+  };
+
+  const statusSort = (a: TaskModel, b: TaskModel): number => {
+    if (a.statut < b.statut) return -1;
+    if (a.statut > b.statut) return 1;
+    return 0;
+  };
+
+  const onSort = (option: string, tasks: TaskModel[]): TaskModel[] => {
+    const taskSorted = [...tasks].sort((a, b) => {
+      let numberSort: number = 0;
+      switch (option) {
+        case "status": {
+          numberSort = statusSort(a, b);
+          if (numberSort === 0) {
+            numberSort = dateSort(a.date_expiration!, b.date_expiration!);
+            if (numberSort === 0) {
+              numberSort = -dateSort(a.date_creation!, b.date_creation!);
+            }
+          }
+          return numberSort;
+        }
+        case "dueDate": {
+          numberSort = dateSort(a.date_expiration!, b.date_expiration!);
+          return isSortAscending ? numberSort : -numberSort;
+        }
+        case "createDate": {
+          numberSort = dateSort(a.date_creation!, b.date_creation!);
+          return isSortAscending ? -numberSort : numberSort;
+        }
       }
-      case "dueDate": {
-        console.log("duedate" + isSortAscending);
-        taskSorted = [...tasks].sort((a, b) => {
-          const sort =
-            new Date(a.date_expiration!).getTime() -
-            new Date(b.date_expiration!).getTime();
-          return isSortAscending ? sort : -sort;
-        });
-        setIsSortByStatus(false);
-        setIsSortByDueDate(true);
-        setIsSortByCreateDate(false);
-        setSortOption("dueDate");
-        break;
-      }
-      case "createDate": {
-        console.log("createDate" + isSortAscending);
-        taskSorted = [...tasks].sort((a, b) => {
-          const sort = a.id - b.id;
-          return isSortAscending ? sort : -sort;
-        });
-        setIsSortByStatus(false);
-        setIsSortByDueDate(false);
-        setIsSortByCreateDate(true);
-        setSortOption("createDate");
-        break;
-      }
-    }
+      return 0;
+    });
+    setSortOption(option);
     return taskSorted;
   };
 
@@ -77,9 +60,6 @@ export const SortProvider = ({ children }: any) => {
       value={{
         onSort,
         isSortAscending,
-        isSortByCreateDate,
-        isSortByDueDate,
-        isSortByStatus,
         sortOption,
         setIsSortAscending,
       }}

@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import { useModalContext } from "../utils/hook";
 import ConfirmModal from "../components/ConfirmModal";
 import { NavLink } from "react-router-dom";
+import TaskSort from "./TaskSort";
 
 export default function Header() {
   const formModal = useModalContext("form");
@@ -26,7 +27,7 @@ export default function Header() {
           onClick={() => formModal.open(null)}
           text="+ Ajouter une tâche"
         />
-        <div>Tri des tâches</div>
+        <TaskSort />
       </div>
       <div>
         <span>Statut</span>

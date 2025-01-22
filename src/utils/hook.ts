@@ -5,6 +5,7 @@ import {
   ModalContextType,
 } from "./contextModal";
 import { SortContext } from "./contextSort";
+import { TaskContext } from "./contextTask";
 
 export const useModalContext = (type: "form" | "confirm"): ModalContextType => {
   const chooseContext = (contextType: Context<ModalContextType | null>) => {
@@ -29,6 +30,14 @@ export const useSortContext = () => {
   const context = useContext(SortContext);
   if (!context) {
     throw new Error("useSortContext est null");
+  }
+  return context;
+};
+
+export const useTaskContext = () => {
+  const context = useContext(TaskContext);
+  if (!context) {
+    throw new Error("useTaskContext est null");
   }
   return context;
 };
