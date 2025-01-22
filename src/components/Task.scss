@@ -1,0 +1,13 @@
+.task {
+  display: flex;
+  border: 2px solid black;
+  & > div {
+    min-width: 100px;
+    max-width: 200px;
+    border: 1px solid grey;
+    padding: 3px;
+  }
+  &__desc {
+    min-width: 200px !important;
+  }
+}
