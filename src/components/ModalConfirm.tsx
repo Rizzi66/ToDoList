@@ -2,7 +2,7 @@ import Modal from "react-modal";
 import { useModalContext } from "../utils/hook";
 import { TaskController } from "../controllers/TaskController";
 
-export default function ConfirmModal() {
+export default function ModalConfirm() {
   const confirmModal = useModalContext("confirm");
 
   async function deleteTask(taskID: number | null) {

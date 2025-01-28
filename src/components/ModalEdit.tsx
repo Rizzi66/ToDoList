@@ -2,7 +2,7 @@ import Modal from "react-modal";
 import TaskEdit from "./TaskEdit";
 import { useModalContext } from "../utils/hook";
 
-export default function TaskModal() {
+export default function ModalEdit() {
   const formModal = useModalContext("form");
 
   return (

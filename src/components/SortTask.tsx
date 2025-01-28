@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Arrow_down from "../assets/Arrow_down.svg";
 import Arrow_up from "../assets/Arrow_up.svg";
 
-export default function TaskSort() {
+export default function SortTask() {
   const { onSort, isSortAscending, sortOption, setIsSortAscending } =
     useSortContext();
   const { tasks, setTasks } = useTaskContext();

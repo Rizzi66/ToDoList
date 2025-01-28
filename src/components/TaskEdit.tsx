@@ -13,7 +13,7 @@ export interface TaskFormatedType {
   status: string;
 }
 
-export default function TaskForm() {
+export default function TaskEdit() {
   const formModal = useModalContext("form");
   const confirmModal = useModalContext("confirm");
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -187,7 +187,9 @@ export default function TaskForm() {
           <textarea
             name="description"
             id="description"
-            value={taskFormated?.description}
+            value={
+              taskFormated?.description ? taskFormated.description : undefined
+            }
             onChange={onChange}
             className="textarea textarea-bordered resize-none h-48"
           ></textarea>
