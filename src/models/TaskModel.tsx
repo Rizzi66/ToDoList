@@ -1,4 +1,4 @@
-import { TaskFormatedType } from "../components/TaskForm";
+import { TaskFormatedType } from "../components/TaskEdit";
 
 export default interface TaskModel {
   id: number;

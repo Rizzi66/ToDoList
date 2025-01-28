@@ -1,19 +1,6 @@
 import Modal from "react-modal";
-import "./ConfirmModal.scss";
 import { useModalContext } from "../utils/hook";
 import { TaskController } from "../controllers/TaskController";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "grey",
-  },
-};
 
 export default function ConfirmModal() {
   const confirmModal = useModalContext("confirm");
@@ -28,16 +15,27 @@ export default function ConfirmModal() {
   return (
     <Modal
       isOpen={confirmModal.isOpen}
-      // onAfterOpen={afterOpenModal}
       onRequestClose={confirmModal.close}
-      style={customStyles}
-      contentLabel="Example Modal"
+      overlayClassName="modal modal-open"
+      className="modal-box"
       ariaHideApp={false}
     >
-      <div>Voulez-vous supprimer la tâche "{confirmModal.taskID}" ?</div>
-      <div>
-        <button onClick={() => deleteTask(confirmModal.taskID)}>Oui</button>
-        <button onClick={confirmModal.close}>Non</button>
+      <div className="text-center">
+        Voulez-vous supprimer la tâche "{confirmModal.taskTitle}" ?
+      </div>
+      <div className="flex flex-row justify-around">
+        <button
+          className="btn btn-neutral w-2/5 mt-6"
+          onClick={() => deleteTask(confirmModal.taskID)}
+        >
+          Oui
+        </button>
+        <button
+          className="btn btn-neutral btn-wide w-2/5 mt-6"
+          onClick={confirmModal.close}
+        >
+          Non
+        </button>
       </div>
     </Modal>
   );

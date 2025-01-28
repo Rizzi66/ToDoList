@@ -1,5 +1,3 @@
-import "./homepage.scss";
-
 export default function ErrorPage() {
   return (
     <>

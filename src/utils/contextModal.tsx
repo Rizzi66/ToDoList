@@ -3,7 +3,8 @@ import { useState, createContext } from "react";
 export interface ModalContextType {
   isOpen: boolean;
   taskID: number | null;
-  open: (taskID: number | null) => void;
+  taskTitle?: string | null;
+  open: (taskID: number | null, title?: string | null) => void;
   close: () => void;
   selectedValue?: string;
   selectValue?: (value: string) => void;
@@ -59,9 +60,13 @@ export const ConfirmModalContext = createContext<ModalContextType | null>(null);
 export const ConfirmModalProvider = ({ children }: any) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [taskID, setTaskID] = useState<number | null>(null);
+  const [taskTitle, setTaskTitle] = useState<string | null>(null);
 
-  const open = (taskID: any | null): void => {
+  const open = (taskID: number | null, title?: string | null): void => {
     setTaskID(taskID);
+    if (title) {
+      setTaskTitle(title);
+    }
     setIsOpen(true);
   };
 
@@ -70,7 +75,9 @@ export const ConfirmModalProvider = ({ children }: any) => {
   };
 
   return (
-    <ConfirmModalContext.Provider value={{ isOpen, taskID, open, close }}>
+    <ConfirmModalContext.Provider
+      value={{ isOpen, taskID, taskTitle, open, close }}
+    >
       {children}
     </ConfirmModalContext.Provider>
   );

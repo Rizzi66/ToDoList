@@ -1,10 +1,9 @@
-import TaskList from "../components/TaskList";
-import "./homepage.scss";
+import TasksList from "../components/TasksList";
 
 export default function CurrentPage() {
   return (
     <>
-      <TaskList tasksToGet="En cours" />
+      <TasksList tasksToGet="En cours" />
     </>
   );
 }

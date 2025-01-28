@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./TaskList.scss";
 import Task from "./Task";
 import { TaskController } from "../controllers/TaskController";
 import { useModalContext, useSortContext, useTaskContext } from "../utils/hook";
@@ -11,9 +10,6 @@ export default function TaskList({ tasksToGet }: { tasksToGet: string }) {
   const { onSort } = useSortContext();
 
   const formModal = useModalContext("form");
-  if (formModal.selectValue) {
-    formModal.selectValue(tasksToGet);
-  }
 
   async function getTasks() {
     const tasksFetched = await TaskController.getTasks();
@@ -34,15 +30,34 @@ export default function TaskList({ tasksToGet }: { tasksToGet: string }) {
     } else {
       getTasksbyStatus(tasksToGet);
     }
+    if (formModal.selectValue) {
+      formModal.selectValue(tasksToGet);
+    }
   }, []);
 
-  return isLoading ? (
-    <Loading />
-  ) : (
-    <div className="tasks">
-      {tasks.map((task: any) => (
-        <Task key={task.id} task={task} />
-      ))}
+  return (
+    <div className="overflow-x-auto flex justify-center">
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <table className="table w-full place-content-center mx-4">
+          <thead>
+            <tr className="grid grid-cols-[96px_1fr_40px_40px] grid-rows-2 sm:table-row bg-black/5 *:py-1 border border-primary">
+              <th className="row-span-2 flex items-center">Statut</th>
+              <th className="pl-0 sm:pl-4 col-span-3">Titre</th>
+              <th className="hidden lg:table-cell">Description</th>
+              <th className="pl-0 sm:pl-4">Date d'expiration</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasks.map((task: any) => (
+              <Task key={task.id} task={task} />
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

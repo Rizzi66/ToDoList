@@ -1,4 +1,3 @@
-import "./App.css";
 import HomePage from "./pages/homePage";
 import CurrentPage from "./pages/currentPage";
 import DonePage from "./pages/donePage";
@@ -14,22 +13,24 @@ function App() {
   return (
     <>
       <Router>
-        <TaskProvider>
-          <FormModalProvider>
-            <ConfirmModalProvider>
+        <FormModalProvider>
+          <ConfirmModalProvider>
+            <TaskProvider>
               <SortProvider>
-                <Header />
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/current" element={<CurrentPage />} />
-                  <Route path="/todo" element={<ToDoPage />} />
-                  <Route path="/done" element={<DonePage />} />
-                  <Route path="*" element={<ErrorPage />} />
-                </Routes>
+                <div className="max-w-[1400px] m-auto mb-10">
+                  <Header />
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/current" element={<CurrentPage />} />
+                    <Route path="/todo" element={<ToDoPage />} />
+                    <Route path="/done" element={<DonePage />} />
+                    <Route path="*" element={<ErrorPage />} />
+                  </Routes>
+                </div>
               </SortProvider>
-            </ConfirmModalProvider>
-          </FormModalProvider>
-        </TaskProvider>
+            </TaskProvider>
+          </ConfirmModalProvider>
+        </FormModalProvider>
       </Router>
     </>
   );

@@ -1,4 +1,4 @@
-import { TaskFormatedType } from "../components/TaskForm";
+import { TaskFormatedType } from "../components/TaskEdit";
 import TaskModel, {
   transformModifyTask,
   transformTask,
@@ -52,7 +52,6 @@ export class TaskController {
   static async createTask(taskCreated: TaskFormatedType): Promise<TaskModel> {
     try {
       const taskToFetch = transformTask(taskCreated);
-      console.log(taskToFetch);
       const response = await fetch("http://localhost:3004/task", {
         method: "POST",
         headers: {

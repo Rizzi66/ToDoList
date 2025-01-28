@@ -1,10 +1,9 @@
-import TaskList from "../components/TaskList";
-import "./homepage.scss";
+import TasksList from "../components/TasksList";
 
 export default function ToDoPage() {
   return (
     <>
-      <TaskList tasksToGet="A faire" />
+      <TasksList tasksToGet="A faire" />
     </>
   );
 }
