@@ -3,6 +3,7 @@ import Task from "./Task";
 import { TaskController } from "../controllers/TaskController";
 import { useModalContext, useSortContext, useTaskContext } from "../utils/hook";
 import Loading from "./Loading";
+import TaskModel from "../models/TaskModel";
 
 export default function TaskList({ tasksToGet }: { tasksToGet: string }) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -52,7 +53,7 @@ export default function TaskList({ tasksToGet }: { tasksToGet: string }) {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task: any) => (
+            {tasks.map((task: TaskModel) => (
               <Task key={task.id} task={task} />
             ))}
           </tbody>

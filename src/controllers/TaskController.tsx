@@ -51,7 +51,7 @@ export class TaskController {
 
   static async createTask(taskCreated: TaskFormatedType): Promise<TaskModel> {
     try {
-      const taskToFetch = transformTask(taskCreated);
+      const taskToFetch: TaskModel = transformTask(taskCreated);
       const response = await fetch("http://localhost:3004/task", {
         method: "POST",
         headers: {
@@ -75,8 +75,7 @@ export class TaskController {
     taskModify: TaskFormatedType
   ): Promise<TaskModel> {
     try {
-      const taskToFetch = transformModifyTask(taskModify);
-      console.log(taskToFetch);
+      const taskToFetch: TaskModel = transformModifyTask(taskModify);
       const response = await fetch(`http://localhost:3004/task/${id}`, {
         method: "PUT",
         headers: {

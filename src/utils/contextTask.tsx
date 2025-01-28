@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, ReactNode } from "react";
 import TaskModel from "../models/TaskModel";
 
 export interface TaskContextType {
@@ -8,7 +8,7 @@ export interface TaskContextType {
 
 export const TaskContext = createContext<TaskContextType | null>(null);
 
-export const TaskProvider = ({ children }: any) => {
+export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [tasks, setTasks] = useState<TaskModel[]>([]);
 
   return (

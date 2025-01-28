@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, ReactNode } from "react";
 
 export interface ModalContextType {
   isOpen: boolean;
@@ -12,12 +12,12 @@ export interface ModalContextType {
 
 export const FormModalContext = createContext<ModalContextType | null>(null);
 
-export const FormModalProvider = ({ children }: any) => {
+export const FormModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [taskID, setTaskID] = useState<number | null>(null);
   const [selectedValue, setSelectedValue] = useState<string>("A faire");
 
-  const open = (taskID: any | null): void => {
+  const open = (taskID: number | null): void => {
     setTaskID(taskID);
     setIsOpen(true);
   };

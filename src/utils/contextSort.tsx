@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, ReactNode } from "react";
 import TaskModel from "../models/TaskModel";
 
 export interface SortContextType {
@@ -10,11 +10,11 @@ export interface SortContextType {
 
 export const SortContext = createContext<SortContextType | null>(null);
 
-export const SortProvider = ({ children }: any) => {
+export const SortProvider = ({ children }: { children: ReactNode }) => {
   const [isSortAscending, setIsSortAscending] = useState<boolean>(true);
   const [sortOption, setSortOption] = useState<string>("dueDate");
 
-  const dateSort = (a: Date, b: Date): number => {
+  const dateSort = (a: Date | undefined, b: Date | undefined): number => {
     const aSort = a ? new Date(a).getTime() : 0;
     const bSort = b ? new Date(b).getTime() : 0;
     return aSort - bSort;

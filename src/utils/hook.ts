@@ -4,8 +4,8 @@ import {
   FormModalContext,
   ModalContextType,
 } from "./contextModal";
-import { SortContext } from "./contextSort";
-import { TaskContext } from "./contextTask";
+import { SortContext, SortContextType } from "./contextSort";
+import { TaskContext, TaskContextType } from "./contextTask";
 
 export const useModalContext = (type: "form" | "confirm"): ModalContextType => {
   const chooseContext = (contextType: Context<ModalContextType | null>) => {
@@ -26,7 +26,7 @@ export const useModalContext = (type: "form" | "confirm"): ModalContextType => {
   throw new Error(`Invalid modal type: ${type}`);
 };
 
-export const useSortContext = () => {
+export const useSortContext = (): SortContextType => {
   const context = useContext(SortContext);
   if (!context) {
     throw new Error("useSortContext est null");
@@ -34,7 +34,7 @@ export const useSortContext = () => {
   return context;
 };
 
-export const useTaskContext = () => {
+export const useTaskContext = (): TaskContextType => {
   const context = useContext(TaskContext);
   if (!context) {
     throw new Error("useTaskContext est null");

@@ -17,8 +17,10 @@ export default function TaskForm() {
   const formModal = useModalContext("form");
   const confirmModal = useModalContext("confirm");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [taskFormated, setTaskFormated] = useState<TaskFormatedType>();
-  const [taskToCreate, SetTaskToCreate] = useState<boolean>(false);
+  const [taskFormated, setTaskFormated] = useState<
+    TaskFormatedType | undefined
+  >(undefined);
+  const [taskToCreate, setTaskToCreate] = useState<boolean>(false);
 
   async function getTask(taskID: number) {
     const taskFetched = await TaskController.getTask(taskID);
@@ -46,7 +48,7 @@ export default function TaskForm() {
     if (formModal.taskID !== null) {
       getTask(formModal.taskID);
     } else {
-      SetTaskToCreate(true);
+      setTaskToCreate(true);
       setTaskFormated((prevValues: any) => ({
         ...prevValues,
         status: formModal.selectedValue,
