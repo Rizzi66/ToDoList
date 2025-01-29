@@ -1,9 +1,5 @@
 import { Context, useContext } from "react";
-import {
-  ConfirmModalContext,
-  FormModalContext,
-  ModalContextType,
-} from "./contextModal";
+import { ConfirmModalContext, FormModalContext, ModalContextType } from "./contextModal";
 import { SortContext, SortContextType } from "./contextSort";
 import { TaskContext, TaskContextType } from "./contextTask";
 

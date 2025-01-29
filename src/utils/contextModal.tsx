@@ -47,9 +47,7 @@ export const FormModalProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <FormModalContext.Provider
-      value={{ isOpen, taskID, open, close, selectValue, selectedValue }}
-    >
+    <FormModalContext.Provider value={{ isOpen, taskID, open, close, selectValue, selectedValue }}>
       {children}
     </FormModalContext.Provider>
   );
@@ -57,7 +55,7 @@ export const FormModalProvider = ({ children }: { children: ReactNode }) => {
 
 export const ConfirmModalContext = createContext<ModalContextType | null>(null);
 
-export const ConfirmModalProvider = ({ children }: any) => {
+export const ConfirmModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [taskID, setTaskID] = useState<number | null>(null);
   const [taskTitle, setTaskTitle] = useState<string | null>(null);
@@ -75,9 +73,7 @@ export const ConfirmModalProvider = ({ children }: any) => {
   };
 
   return (
-    <ConfirmModalContext.Provider
-      value={{ isOpen, taskID, taskTitle, open, close }}
-    >
+    <ConfirmModalContext.Provider value={{ isOpen, taskID, taskTitle, open, close }}>
       {children}
     </ConfirmModalContext.Provider>
   );

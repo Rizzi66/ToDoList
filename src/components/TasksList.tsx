@@ -9,18 +9,28 @@ export default function TaskList({ tasksToGet }: { tasksToGet: string }) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { tasks, setTasks } = useTaskContext();
   const { onSort } = useSortContext();
-
   const formModal = useModalContext("form");
 
   async function getTasks() {
     const tasksFetched = await TaskController.getTasks();
-    const taskSorted = onSort("status", tasksFetched);
+    const tasksInstantiated = tasksFetched.map(
+      ({ id, titre, description, statut, date_expiration, date_creation }: any) => {
+        return new TaskModel(id, titre, description, statut, date_expiration, date_creation);
+      }
+    );
+    const taskSorted = onSort("status", tasksInstantiated);
     setTasks(taskSorted);
     setIsLoading(false);
   }
+
   async function getTasksbyStatus(tasksToGet: string) {
     const tasksFetched = await TaskController.getTasksbyStatus(tasksToGet);
-    const taskSorted = onSort("dueDate", tasksFetched);
+    const tasksInstantiated = tasksFetched.map(
+      ({ id, titre, description, statut, date_expiration, date_creation }: any) => {
+        return new TaskModel(id, titre, description, statut, date_expiration, date_creation);
+      }
+    );
+    const taskSorted = onSort("dueDate", tasksInstantiated);
     setTasks(taskSorted);
     setIsLoading(false);
   }

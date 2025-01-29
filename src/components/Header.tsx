@@ -17,7 +17,7 @@ export default function Header() {
           To-Do List
         </h1>
         <nav>
-          <ul className="menu gap-2 bg-base-200 w-full lg:w-56 flex-row lg:flex-col justify-between lg:justify-start">
+          <ul className="menu gap-2 bg-base-200 w-full lg:w-56 flex-row lg:flex-col justify-between lg:justify-start *:w-[48%] *:sm:w-[24%] *:lg:w-full *:*:justify-center *:*:lg:justify-start">
             <li>
               <NavLink to="/">Toutes les tâches</NavLink>
             </li>

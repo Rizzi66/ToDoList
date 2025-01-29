@@ -11,14 +11,5 @@ export const TaskContext = createContext<TaskContextType | null>(null);
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [tasks, setTasks] = useState<TaskModel[]>([]);
 
-  return (
-    <TaskContext.Provider
-      value={{
-        tasks,
-        setTasks,
-      }}
-    >
-      {children}
-    </TaskContext.Provider>
-  );
+  return <TaskContext.Provider value={{ tasks, setTasks }}>{children}</TaskContext.Provider>;
 };

@@ -14,15 +14,15 @@ export const SortProvider = ({ children }: { children: ReactNode }) => {
   const [isSortAscending, setIsSortAscending] = useState<boolean>(true);
   const [sortOption, setSortOption] = useState<string>("dueDate");
 
-  const dateSort = (a: Date | undefined, b: Date | undefined): number => {
+  const dateSort = (a: string | undefined, b: string | undefined): number => {
     const aSort = a ? new Date(a).getTime() : 0;
     const bSort = b ? new Date(b).getTime() : 0;
     return aSort - bSort;
   };
 
-  const statusSort = (a: TaskModel, b: TaskModel): number => {
-    if (a.statut < b.statut) return -1;
-    if (a.statut > b.statut) return 1;
+  const statusSort = (a: string, b: string): number => {
+    if (a < b) return -1;
+    if (a > b) return 1;
     return 0;
   };
 
@@ -31,21 +31,21 @@ export const SortProvider = ({ children }: { children: ReactNode }) => {
       let numberSort: number = 0;
       switch (option) {
         case "status": {
-          numberSort = statusSort(a, b);
+          numberSort = statusSort(a.status, b.status);
           if (numberSort === 0) {
-            numberSort = dateSort(a.date_expiration!, b.date_expiration!);
+            numberSort = dateSort(a.dateExp, b.dateExp);
             if (numberSort === 0) {
-              numberSort = -dateSort(a.date_creation!, b.date_creation!);
+              numberSort = -dateSort(a.dateCreate, b.dateCreate);
             }
           }
           return numberSort;
         }
         case "dueDate": {
-          numberSort = dateSort(a.date_expiration!, b.date_expiration!);
+          numberSort = dateSort(a.dateExp, b.dateExp);
           return isSortAscending ? numberSort : -numberSort;
         }
         case "createDate": {
-          numberSort = dateSort(a.date_creation!, b.date_creation!);
+          numberSort = dateSort(a.dateCreate, b.dateCreate);
           return isSortAscending ? -numberSort : numberSort;
         }
       }
@@ -56,14 +56,7 @@ export const SortProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <SortContext.Provider
-      value={{
-        onSort,
-        isSortAscending,
-        sortOption,
-        setIsSortAscending,
-      }}
-    >
+    <SortContext.Provider value={{ onSort, isSortAscending, sortOption, setIsSortAscending }}>
       {children}
     </SortContext.Provider>
   );

@@ -20,20 +20,12 @@ export default function ModalConfirm() {
       className="modal-box"
       ariaHideApp={false}
     >
-      <div className="text-center">
-        Voulez-vous supprimer la tâche "{confirmModal.taskTitle}" ?
-      </div>
+      <div className="text-center">Voulez-vous supprimer la tâche "{confirmModal.taskTitle}" ?</div>
       <div className="flex flex-row justify-around">
-        <button
-          className="btn btn-neutral w-2/5 mt-6"
-          onClick={() => deleteTask(confirmModal.taskID)}
-        >
+        <button className="btn btn-neutral w-2/5 mt-6" onClick={() => deleteTask(confirmModal.taskID)}>
           Oui
         </button>
-        <button
-          className="btn btn-neutral btn-wide w-2/5 mt-6"
-          onClick={confirmModal.close}
-        >
+        <button className="btn btn-neutral btn-wide w-2/5 mt-6" onClick={confirmModal.close}>
           Non
         </button>
       </div>

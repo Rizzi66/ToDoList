@@ -1,13 +1,10 @@
-import { TaskFormatedType } from "../components/TaskEdit";
-import TaskModel, {
-  transformModifyTask,
-  transformTask,
-} from "../models/TaskModel";
+import TaskModel from "../models/TaskModel";
+const urlBackend = import.meta.env.VITE_URL_BACKEND;
 
 export class TaskController {
-  static async getTasks(): Promise<TaskModel[]> {
+  static async getTasks(): Promise<any> {
     try {
-      const response = await fetch("http://localhost:3004/task");
+      const response = await fetch(urlBackend);
       if (!response.ok) {
         throw new Error("Erreur lors de la récupération des tâches.");
       }
@@ -19,11 +16,9 @@ export class TaskController {
     }
   }
 
-  static async getTasksbyStatus(status: string): Promise<TaskModel[]> {
+  static async getTasksbyStatus(status: string): Promise<any> {
     try {
-      const response = await fetch(
-        `http://localhost:3004/task/status/${status}`
-      );
+      const response = await fetch(`${urlBackend}/status/${status}`);
       if (!response.ok) {
         throw new Error("Erreur lors de la récupération des tâches.");
       }
@@ -35,9 +30,9 @@ export class TaskController {
     }
   }
 
-  static async getTask(id: number): Promise<TaskModel> {
+  static async getTask(id: number): Promise<any> {
     try {
-      const response = await fetch(`http://localhost:3004/task/${id}`);
+      const response = await fetch(`${urlBackend}/${id}`);
       if (!response.ok) {
         throw new Error(`Erreur lors de la récupération de la tâche n°${id}.`);
       }
@@ -49,10 +44,10 @@ export class TaskController {
     }
   }
 
-  static async createTask(taskCreated: TaskFormatedType): Promise<TaskModel> {
+  static async createTask(taskCreated: TaskModel): Promise<TaskModel> {
     try {
-      const taskToFetch: TaskModel = transformTask(taskCreated);
-      const response = await fetch("http://localhost:3004/task", {
+      const taskToFetch = TaskModel.sendTask(taskCreated);
+      const response = await fetch(`${urlBackend}/task`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,13 +65,10 @@ export class TaskController {
     }
   }
 
-  static async modifyTask(
-    id: number,
-    taskModify: TaskFormatedType
-  ): Promise<TaskModel> {
+  static async modifyTask(id: number, taskModify: TaskModel): Promise<TaskModel> {
     try {
-      const taskToFetch: TaskModel = transformModifyTask(taskModify);
-      const response = await fetch(`http://localhost:3004/task/${id}`, {
+      const taskToFetch = TaskModel.sendTask(taskModify);
+      const response = await fetch(`${urlBackend}/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +88,7 @@ export class TaskController {
 
   static async deleteTask(id: number): Promise<void> {
     try {
-      const response = await fetch(`http://localhost:3004/task/${id}`, {
+      const response = await fetch(`${urlBackend}/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
